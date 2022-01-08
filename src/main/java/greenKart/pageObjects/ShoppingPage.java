@@ -1,15 +1,42 @@
 package greenKart.pageObjects;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingPage {
 
+	WebDriver driver;
+
+	public ShoppingPage(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+
 	/*
 		Methods
 	 */
+	public void searchForItem(String itemName) {
+		searchInput.sendKeys(itemName);
+	}
+
+	public List<WebElement> getItemNames() {
+		return productNames;
+	}
+
+	public ArrayList<String> getItemNamesAsString() {
+		ArrayList<String> names = new ArrayList<>();
+		for (WebElement productName: productNames) {
+			names.add(productName.getText().split("-")[0].trim());
+		}
+		return names;
+	}
+
+
 
 	/*
 		Web Elements
@@ -35,7 +62,7 @@ public class ShoppingPage {
 	private @FindBy(className = "product")
 		List<WebElement> products;
 
-	private @FindBy(className = "product-name")
+	private @FindBy(css = "h4.product-name")
 		List<WebElement> productNames;
 
 	private @FindBy(className = "product-price")
