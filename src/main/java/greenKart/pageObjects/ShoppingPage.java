@@ -1,5 +1,6 @@
 package greenKart.pageObjects;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +25,11 @@ public class ShoppingPage {
 		searchInput.sendKeys(itemName);
 	}
 
+	public void clearSearchInput() {
+		searchInput.sendKeys(Keys.CONTROL, "a");
+		searchInput.sendKeys(Keys.BACK_SPACE);
+	}
+
 	public List<WebElement> getItemNames() {
 		return productNames;
 	}
@@ -36,6 +42,9 @@ public class ShoppingPage {
 		return names;
 	}
 
+	public WebElement getSearchError() {
+		return failedSearchMessage;
+	}
 
 
 	/*
