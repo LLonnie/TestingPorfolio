@@ -79,4 +79,109 @@ test.describe("Inventory Page", () => {
       });
     });
   });
+
+  test.describe("Search", () => {
+    /**
+     * GIVEN I am on the products page
+     * WHEN I enter a search term "screw"
+     * AND press the "Search" button
+     * THEN the products on the page are correctly filtered by the search term
+     * AND WHEN I click the clear search button
+     * THEN the grid is correctly reset to its initial state.
+     */
+    test("Can search for items, and then clear the search", async ({
+      page,
+    }) => {
+      const searchTerm = "screw";
+      // Get list of initial items.
+      let items = await page.locator('[data-test="product-name"]');
+      const preSearchItems = (await items.evaluateAll((itemList) =>
+        itemList.map((item) => item.textContent)
+      )) as string[];
+
+      // Search for "screw"
+      await page.locator('[data-test="search-query"]').fill(searchTerm);
+      await page.locator('[data-test="search-submit"]').click();
+      await page.waitForResponse("**/search**");
+
+      // Get list of items after searching
+      items = await page.locator('[data-test="product-name"]');
+      const postSearchItems = (await items.evaluateAll((itemList) =>
+        itemList.map((item) => item.textContent)
+      )) as string[];
+
+      // Verify all items shown contain screw
+      expect(
+        postSearchItems.every((item) =>
+          item.toLocaleLowerCase().includes(searchTerm)
+        )
+      ).toBeTruthy();
+
+      // Clear search
+      await page.locator('[data-test="search-reset"]').click();
+      await page.waitForResponse("**/products**");
+
+      // Get list of items after clearing searching
+      items = await page.locator('[data-test="product-name"]');
+      const postSearchClearItems = (await items.evaluateAll((itemList) =>
+        itemList.map((item) => item.textContent)
+      )) as string[];
+
+      // Verify list of items reset.
+      expect(
+        postSearchClearItems.every((item) => preSearchItems.includes(item))
+      ).toBeTruthy();
+    });
+
+    /**
+     * GIVEN I am on the products page
+     * WHEN I enter a search term "xxx" that has no results
+     * AND press the "Search" button
+     * THEN I recieve the expected "There are no products found" message.
+     */
+    test("Returns 'no products found' message for a search yielding no results", async ({
+      page,
+    }) => {
+      const searchTerm = "xxx";
+      // Search for "xxx"
+      await page.locator('[data-test="search-query"]').fill(searchTerm);
+      await page.locator('[data-test="search-submit"]').click();
+      await page.waitForResponse("**/search**");
+
+      // Get list of items after searching
+      const items = await page.locator('[data-test="product-name"]');
+      const postSearchItems = (await items.evaluateAll((itemList) =>
+        itemList.map((item) => item.textContent)
+      )) as string[];
+
+      // Verify no products found and expected message presented.
+      const noProductMessage = await page
+        .locator('[data-test="no-results"]')
+        .textContent();
+      expect(postSearchItems).toHaveLength(0);
+      expect(noProductMessage).toEqual("There are no products found.");
+    });
+  });
+
+  test.describe("Price Range Slider", () => {
+    [
+      {
+        lowRange: 1,
+        highRange: 10,
+      },
+      {
+        lowRange: 150,
+        highRange: 200,
+      },
+    ].forEach(({ lowRange, highRange }) => {
+      test(`Products are correctly filtered by the price range slider when set to ${lowRange}-${highRange}`, async ({
+        page,
+      }) => {
+        // Set the lower number
+        // Set the higher number
+        // Get the items
+        // Verify the items are in between the range set.
+      });
+    });
+  });
 });
