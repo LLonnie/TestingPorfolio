@@ -163,24 +163,63 @@ test.describe("Inventory Page", () => {
     });
   });
 
-  test.describe("Price Range Slider", () => {
+  test.describe.skip("Price Range Slider", () => {
     [
       {
         lowRange: 1,
         highRange: 10,
       },
-      {
-        lowRange: 150,
-        highRange: 200,
-      },
+      // {
+      //   lowRange: 150,
+      //   highRange: 200,
+      // },
     ].forEach(({ lowRange, highRange }) => {
       test(`Products are correctly filtered by the price range slider when set to ${lowRange}-${highRange}`, async ({
         page,
       }) => {
-        // Set the lower number
-        // Set the higher number
-        // Get the items
-        // Verify the items are in between the range set.
+        // // Get slider bounding box
+        // // Get current value of lower bound
+        // // Calculate the % of desired number in range (1-200)
+        // // Select lower bound
+        // // Move mouse to desired bound
+        // // Let go of mouse.
+        // // Get the slider bounding box
+        // const sliderBound = await page.locator("ngx-slider").boundingBox();
+        // // Set the lower number
+        // const currentLowValue = await page.evaluate(
+        //   `document.evaluate('span[aria-label="ngx-slider"]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.value`
+        // );
+        // const lowTargetX =
+        //   sliderBound?.x + (sliderBound?.width * currentLowValue) / 100;
+        // const lowTargetY = sliderBound?.y + sliderBound?.height / 2;
+        // const lowRangeSelector = await page.locator(
+        //   'span[aria-label="ngx-slider"]'
+        // );
+        // await lowRangeSelector.hover();
+        // await page.mouse.down();
+        // await lowRangeSelector.hover({
+        //   position: {
+        //     x: 0, //sliderBound.x + (sliderBound.width * 1) / 100
+        //     y: sliderBound.y + sliderBound?.height / 2,
+        //   },
+        // });
+        // await page.mouse.up();
+        // // Set the higher number
+        // const highRangeSelector = await page.locator(
+        //   'span[aria-label="ngx-slider-max"]'
+        // );
+        // await highRangeSelector.hover();
+        // await page.mouse.down();
+        // await highRangeSelector.hover({ position: { x: highRange, y: 0 } });
+        // await page.mouse.up();
+        // // Get the items
+        // // Grab the names of the initial items on the screen
+        // let items = await page.locator('[data-test="product-price"]');
+        // const postPriceFilterItems = (await items.evaluateAll((itemList) =>
+        //   itemList.map((item) => item.textContent)
+        // )) as string[];
+        // console.log(postPriceFilterItems);
+        // // Verify the items are in between the range set.
       });
     });
   });
