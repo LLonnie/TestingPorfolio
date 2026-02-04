@@ -1,4 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+import path from "path";
+
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -8,25 +12,34 @@ export default defineConfig({
   fullyParallel: true,
   reporter: "html",
   use: {
-    // baseURL: 'http://localhost:3000',
+    baseURL: "https://www.saucedemo.com/",
+    testIdAttribute: "data-test",
     trace: "on-first-retry",
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
+      name: "setup",
+      testDir: "./.auth",
+      testMatch: /.*\.setup\.ts/,
+    },
+    {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
+      dependencies: ["setup"],
     },
 
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
+      dependencies: ["setup"],
     },
 
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
+      dependencies: ["setup"],
     },
   ],
 });
