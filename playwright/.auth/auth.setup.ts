@@ -4,7 +4,6 @@ import path from "path";
 const users = [
   process.env.STANDARD_USER,
   process.env.PROBLEM_USER,
-  process.env.PERFORMANCE_USER,
   process.env.ERROR_USER,
   process.env.VISUAL_USER,
 ];
@@ -15,7 +14,7 @@ for (const username of users) {
     const password = process.env.PASSWORD;
 
     if (!username || !password) {
-      throw new Error("Username or password are undefined");
+      throw new Error("Unable to get username/password from env file");
     }
 
     await page.goto("/");
@@ -24,6 +23,8 @@ for (const username of users) {
     await page.getByTestId("login-button").click();
 
     await page.waitForURL("/inventory.html");
+    await expect(page.getByTestId("title")).toBeVisible();
+    await expect(page.getByTestId("title")).toContainText("Products");
 
     await page.context().storageState({ path: authFile });
   });
