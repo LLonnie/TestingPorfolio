@@ -1,0 +1,12 @@
+{
+  "name": "cypress",
+  "version": "1.0.0",
+  "description": "Cypress e2e testing showcase.",
+  "scripts": {},
+  "author": "Lonnie Lund",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "cypress": "^15.10.0"
+  }
+}
