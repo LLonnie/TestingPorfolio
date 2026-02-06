@@ -1,4 +1,8 @@
 {
+  "name": "testing-portfolio",
+  "workspaces": [
+    "playwright"
+  ],
   "dependencies": {
     "@types/node": "^25.2.0"
   },
