@@ -1,9 +1,12 @@
 {
   "name": "testing-portfolio",
   "workspaces": [
+    "cypress",
     "playwright"
   ],
   "scripts": {
+    "test:cy": "npm run test:cy -w cypress",
+    "test:cy:ui": "npm run test:cy:ui -w cypress",
     "test:pw": "npm run test:pw -w playwright",
     "test:pw:ui": "npm run test:pw:ui -w playwright",
     "test:pw:debug": "npm run test:pw:debug -w playwright"

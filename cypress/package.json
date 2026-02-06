@@ -2,7 +2,10 @@
   "name": "cypress",
   "version": "1.0.0",
   "description": "Cypress e2e testing showcase.",
-  "scripts": {},
+  "scripts": {
+    "test:cy": "npx cypress",
+    "test:cy:ui": "npm run test:cy -- open"
+  },
   "author": "Lonnie Lund",
   "license": "MIT",
   "type": "module",
