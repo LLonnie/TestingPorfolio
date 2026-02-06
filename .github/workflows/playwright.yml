@@ -8,6 +8,7 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -18,6 +19,12 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
+        env:
+          STANDARD_USER: ${{ secrets.STANDARD_USER }}
+          PROBLEM_USER: ${{ secrets.PROBLEM_USER }}
+          ERROR_USER: ${{ secrets.ERROR_USER }}
+          VISUAL_USER: ${{ secrets.VISUAL_USER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
         run: npm run test:pw
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
