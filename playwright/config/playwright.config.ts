@@ -34,7 +34,7 @@ export default defineConfig({
     //   name: "firefox",
     //   use: {
     //     ...devices["Desktop Firefox"],
-    //     storageState: "./.auth/standard_user.json",
+    //     storageState: path.resolve(__dirname, "../.auth/standard_user.json"),
     //   },
     //   dependencies: ["setup"],
     // },
@@ -42,7 +42,7 @@ export default defineConfig({
     //   name: "webkit",
     //   use: {
     //     ...devices["Desktop Safari"],
-    //     storageState: "./.auth/standard_user.json",
+    //     storageState: path.resolve(__dirname, "../.auth/standard_user.json"),
     //   },
     //   dependencies: ["setup"],
     // },
