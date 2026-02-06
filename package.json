@@ -1,4 +1,13 @@
 {
+  "name": "testing-portfolio",
+  "workspaces": [
+    "playwright"
+  ],
+  "scripts": {
+    "test:pw": "npm run test:pw -w playwright",
+    "test:pw:ui": "npm run test:pw:ui -w playwright",
+    "test:pw:debug": "npm run test:pw:debug -w playwright"
+  },
   "dependencies": {
     "@types/node": "^25.2.0"
   },
