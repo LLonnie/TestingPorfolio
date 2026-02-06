@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test:pw": "npx playwright test --config config/playwright.config.ts",
-    "test:pw:ui": "npm run test:e2e -- --ui",
-    "test:pw:debug": "npm run test:e2e -- --debug"
+    "test:pw:ui": "npm run test:pw -- --ui",
+    "test:pw:debug": "npm run test:pw -- --debug"
   },
   "keywords": [],
   "author": "",
