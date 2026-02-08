@@ -1,4 +1,5 @@
 import { defineConfig } from "cypress";
+import path from "path";
 
 require("dotenv").config();
 
@@ -7,6 +8,8 @@ export default defineConfig({
 
   e2e: {
     baseUrl: "https://www.saucedemo.com/",
+    supportFile: path.resolve(__dirname, "../support/e2e.ts"),
+    specPattern: path.resolve(__dirname, "../e2e/**/*.cy.ts"),
     setupNodeEvents(on, config) {
       config.env.STANDARD_USER = process.env.STANDARD_USER;
       config.env.LOCKED_USER = process.env.LOCKED_USER;

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Cypress e2e testing showcase.",
   "scripts": {
-    "test:cy": "npx cypress",
-    "test:cy:ui": "npm run test:cy -- open"
+    "test:cy": "npx cypress run --config-file config/cypress.config.ts",
+    "test:cy:ui": "npx cypress open --config-file config/cypress.config.ts"
   },
   "author": "Lonnie Lund",
   "license": "MIT",
