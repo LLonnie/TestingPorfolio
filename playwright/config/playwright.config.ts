@@ -1,13 +1,15 @@
 import { defineConfig, devices } from "@playwright/test";
 import path from "path";
 
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
   testDir: "../e2e",
   fullyParallel: true,
-  globalSetup: require.resolve("./global-setup.ts"),
+  globalSetup: "./global-setup.ts",
   reporter: [["html", { outputFolder: "../reports" }]],
   use: {
     baseURL: "https://www.saucedemo.com/",

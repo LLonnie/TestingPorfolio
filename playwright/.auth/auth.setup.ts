@@ -8,6 +8,8 @@ const users = [
   process.env.VISUAL_USER,
 ];
 
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
 for (const username of users) {
   setup(`authenticate ${username}`, async ({ page }) => {
     const authFile = path.join(__dirname, `${username}.json`);
