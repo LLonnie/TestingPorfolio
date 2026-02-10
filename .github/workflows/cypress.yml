@@ -7,11 +7,14 @@ on:
 jobs:
   cypress-run:
     timeout-minutes: 15
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
         env:
           STANDARD_USER: ${{ secrets.STANDARD_USER }}
           PROBLEM_USER: ${{ secrets.PROBLEM_USER }}
@@ -19,6 +22,3 @@ jobs:
           VISUAL_USER: ${{ secrets.VISUAL_USER }}
           LOCKED_USER: ${{ secrets.LOCKED_USER }}
           PASSWORD: ${{ secrets.PASSWORD }}
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
