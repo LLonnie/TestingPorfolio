@@ -1,4 +1,4 @@
-name: Run Cypress Tests
+name: Cypress Tests
 on:
   push:
     branches: [master]
@@ -13,8 +13,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
         env:
           STANDARD_USER: ${{ secrets.STANDARD_USER }}
           PROBLEM_USER: ${{ secrets.PROBLEM_USER }}
