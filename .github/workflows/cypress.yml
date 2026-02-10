@@ -9,10 +9,13 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v6
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+      - name: Install dependenciess
+        run: npm ci
+      - name: Run Playwright tests
         env:
           STANDARD_USER: ${{ secrets.STANDARD_USER }}
           PROBLEM_USER: ${{ secrets.PROBLEM_USER }}
@@ -20,3 +23,15 @@ jobs:
           VISUAL_USER: ${{ secrets.VISUAL_USER }}
           LOCKED_USER: ${{ secrets.LOCKED_USER }}
           PASSWORD: ${{ secrets.PASSWORD }}
+        run: npm run test:cy
+    #   - name: Checkout
+    #     uses: actions/checkout@v4
+    #   - name: Run Cypress tests
+    #     uses: cypress-io/github-action@v6
+    #     env:
+    #       STANDARD_USER: ${{ secrets.STANDARD_USER }}
+    #       PROBLEM_USER: ${{ secrets.PROBLEM_USER }}
+    #       ERROR_USER: ${{ secrets.ERROR_USER }}
+    #       VISUAL_USER: ${{ secrets.VISUAL_USER }}
+    #       LOCKED_USER: ${{ secrets.LOCKED_USER }}
+    #       PASSWORD: ${{ secrets.PASSWORD }}
