@@ -1,3 +1,3 @@
 # ReadMe for Cypress
 
-TODO: Fill out.
+TODO: Fill out with details on the Cypress suite.
