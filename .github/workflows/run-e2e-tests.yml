@@ -1,0 +1,46 @@
+name: Run E2E Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  STANDARD_USER: ${{ secrets.STANDARD_USER }}
+  PROBLEM_USER: ${{ secrets.PROBLEM_USER }}
+  ERROR_USER: ${{ secrets.ERROR_USER }}
+  VISUAL_USER: ${{ secrets.VISUAL_USER }}
+  LOCKED_USER: ${{ secrets.LOCKED_USER }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      cypress: ${{ steps.filter.outputs.cypress }}
+      playwright: ${{ steps.filter.outputs.playwright }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            cypress: 'cypress/**'
+            playwright: 'playwright/**'
+
+  run-cypress:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.cypress == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/run-cypress
+
+  run-playwright:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.playwright == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/run-playwright
