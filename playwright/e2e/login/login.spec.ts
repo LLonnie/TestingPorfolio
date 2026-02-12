@@ -1,20 +1,21 @@
 import { test, expect } from "@playwright/test";
+import { LoginPage } from "../../pageObjects/login/login.page";
+import { InventoryPage } from "../../pageObjects/inventory/inventory.page";
 
 test.use({ storageState: "" });
-test("Can login", { tag: "@regression" }, async ({ page }) => {
+test("Can login", { tag: ["@regression", "@smoke"] }, async ({ page }) => {
   const { username, password } = getCredentials(
     process.env.STANDARD_USER,
     process.env.PASSWORD
   );
 
-  await page.goto("/");
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login(username, password);
 
-  await page.getByTestId("username").fill(username);
-  await page.getByTestId("password").fill(password);
-  await page.getByTestId("login-button").click();
-
+  const inventory = new InventoryPage(page);
   await page.waitForURL("/inventory.html");
-  await expect(page.getByTestId("inventory-list")).toBeVisible();
+  await expect(inventory.inventoryList).toBeVisible();
 });
 
 test(
@@ -26,13 +27,11 @@ test(
       process.env.PASSWORD
     );
 
-    await page.goto("/");
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login(username, password);
 
-    await page.getByTestId("username").fill(username);
-    await page.getByTestId("password").fill(password);
-    await page.getByTestId("login-button").click();
-
-    const error = page.getByTestId("error");
+    const error = loginPage.error;
     await expect(error).toBeVisible();
     await expect(error).toContainText("Sorry, this user has been locked out.");
     await expect(page.url()).not.toContain("/inventory.html");
