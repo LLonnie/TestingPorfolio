@@ -7,12 +7,20 @@ export class InventoryPage {
   readonly header: Header;
 
   readonly inventoryList: Locator;
+  readonly inventoryItems: Locator;
+  readonly itemNames: Locator;
+  readonly itemDescriptions: Locator;
+  readonly itemPrices: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.header = new Header(page);
 
     this.inventoryList = this.page.getByTestId("inventory-list");
+    this.inventoryItems = this.page.getByTestId("inventory-item");
+    this.itemNames = this.page.getByTestId("inventory-item-name");
+    this.itemDescriptions = this.page.getByTestId("inventory-item-desc");
+    this.itemPrices = this.page.getByTestId("inventory-item-price");
   }
 
   async goto() {
