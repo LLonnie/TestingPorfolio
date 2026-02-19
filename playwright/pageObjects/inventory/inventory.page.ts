@@ -6,6 +6,8 @@ export class InventoryPage {
   readonly page: Page;
   readonly header: Header;
 
+  readonly sort: Locator;
+
   readonly inventoryList: Locator;
   readonly inventoryItems: Locator;
   readonly itemNames: Locator;
@@ -15,6 +17,8 @@ export class InventoryPage {
   constructor(page: Page) {
     this.page = page;
     this.header = new Header(page);
+
+    this.sort = this.page.getByTestId("product-sort-container");
 
     this.inventoryList = this.page.getByTestId("inventory-list");
     this.inventoryItems = this.page.getByTestId("inventory-item");
