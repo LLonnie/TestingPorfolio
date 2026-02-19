@@ -1,4 +1,6 @@
-export const itemList = [
+import { Item } from "../../types/item.model";
+
+export const itemList: Item[] = [
   {
     name: "Sauce Labs Backpack",
     description:
